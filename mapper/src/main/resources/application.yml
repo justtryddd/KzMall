@@ -1,0 +1,25 @@
+#spring:
+#  datasource:
+#    druid:
+#      driver-class-name: com.mysql.jdbc.Driver
+##      url: jdbc:mysql://localhost:3306/Kzmall?characterEncoding=utf-8&useSSL=false
+#      username: root
+#      password: siki
+#      url: jdbc:mysql://localhost:3306/Kzmall
+
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/fmmall
+      username: root
+      password: siki
+
+
+mybatis:
+  type-aliases-package: com.gyb.entity
+  mapper-locations: classpath:mappers/*Mapper.xml
+
+
+
+

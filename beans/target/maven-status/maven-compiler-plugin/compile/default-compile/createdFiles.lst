@@ -1,0 +1,17 @@
+com\gyb\entity\ShoppingCartVo.class
+com\gyb\entity\UserAddr.class
+com\gyb\entity\ProductSku.class
+com\gyb\entity\ProductParams.class
+com\gyb\entity\Product.class
+com\gyb\entity\ProductVO.class
+com\gyb\entity\UserLoginHistory.class
+com\gyb\entity\Users.class
+com\gyb\entity\ProductComments.class
+com\gyb\entity\CategoryVo.class
+com\gyb\entity\Orders.class
+com\gyb\entity\Category.class
+com\gyb\entity\OrderItem.class
+com\gyb\entity\ShoppingCart.class
+com\gyb\entity\ProductCommentsVo.class
+com\gyb\entity\ProductImg.class
+com\gyb\entity\IndexImg.class

@@ -1,0 +1,14 @@
+com\gyb\mapper\UserLoginHistoryMapper.class
+com\gyb\mapper\UsersMapper.class
+com\gyb\mapper\ProductImgMapper.class
+com\gyb\mapper\ProductMapper.class
+com\gyb\mapper\ShoppingCartMapper.class
+com\gyb\mapper\ProductCommentsMapper.class
+com\gyb\mapper\ProductParamsMapper.class
+com\gyb\general\GeneralDao.class
+com\gyb\mapper\OrderItemMapper.class
+com\gyb\mapper\IndexImgMapper.class
+com\gyb\mapper\ProductSkuMapper.class
+com\gyb\mapper\CategoryMapper.class
+com\gyb\mapper\OrdersMapper.class
+com\gyb\mapper\UserAddrMapper.class
