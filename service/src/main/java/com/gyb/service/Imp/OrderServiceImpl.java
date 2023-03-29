@@ -7,6 +7,7 @@ import com.gyb.entity.ProductSku;
 import com.gyb.entity.ShoppingCartVo;
 import com.gyb.mapper.*;
 import com.gyb.service.OrderService;
+import com.gyb.utils.PageHelper;
 import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,5 +171,48 @@ public class OrderServiceImpl implements OrderService {
                 System.out.println("成功");
             }
         }
+    }
+
+
+
+
+/*    public ResultVo listAllOrdersById(String userId,int pageNum,int limit) {
+
+        //Mapper层要查询第pageNum页的数据且是按照每页limit个数据的原则进行分页。
+        //那就要找到要的pageNum页的一第个数据的位置start，然后limit限制查询的数量免得超出一页最大数量要求
+        int start = (pageNum-1)*limit;
+        List<Orders> orders = ordersMapper.selectAllOrdersByID(userId, start, limit);
+
+
+        //我们要按照分页返回模板PageHelper来返回。
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        int count = ordersMapper.selectCountByExample(example);
+
+        int totalPageNum = count % 10 == 0 ? count/limit : count/limit+1;
+
+        return new ResultVo(ResStatus.OK,"success",new PageHelper<Orders>(count,totalPageNum,orders));
+    }*/
+
+
+
+    public ResultVo listAllStatusOrdersById(String userId, String status, int pageNum, int limit) {
+
+        //Mapper层要查询第pageNum页的数据且是按照每页limit个数据的原则进行分页。
+        //那就要找到要的pageNum页的一第个数据的位置start，然后limit限制查询的数量免得超出一页最大数量要求
+        int start = (pageNum-1)*limit;
+        List<Orders> orders = ordersMapper.selectAllOrdersByIDAndStatus(userId,status,start,limit);
+
+
+        //我们要按照分页返回模板PageHelper来返回。
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        int count = ordersMapper.selectCountByExample(example);
+
+        int totalPageNum = count % 10 == 0 ? count/limit : count/limit+1;
+
+        return new ResultVo(ResStatus.OK,"success",new PageHelper<Orders>(count,totalPageNum,orders));
     }
 }

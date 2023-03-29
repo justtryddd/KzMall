@@ -42,8 +42,37 @@ public class ProductController {
     @ApiOperation("商品评论统计接口")
     @GetMapping("/detail-commontscount/{pid}")
     public ResultVo getProductComments(@PathVariable("pid")String pid){
-        return productService.ProductComments(pid);
+        return productService.productComments(pid);
+    }
+
+    @ApiOperation("根据商品类别查询商品信息")
+    @GetMapping("/listbycid/{cid}")
+    public ResultVo listProductByCategoryId(@PathVariable("cid")int cid,int pageNum,int limit){
+        ResultVo resultVo = productService.listProductByCategoryId(cid, pageNum, limit);
+        return resultVo;
     }
 
 
+    @ApiOperation("根据商品类别查询商品品牌")
+    @GetMapping("/listbrands/{cid}")
+    public ResultVo getProductBrandByCategoryId(@PathVariable("cid") int cid) {
+        ResultVo resultVo = productService.listProductBrandByCid(cid);
+        return resultVo;
+    }
+
+
+    @ApiOperation("根据商品关键字查询商品信息")
+    @GetMapping("/listbykeyword/{kw}")
+    public ResultVo searchProducts(@PathVariable("kw")String kw,int pageNum,int limit){
+        ResultVo resultVo = productService.listProductByProductKW(kw, pageNum, limit);
+        return resultVo;
+    }
+
+
+    @ApiOperation("根据商品关键字查询商品品牌")
+    @GetMapping("//listbrands-keyword")
+    public ResultVo searchProductbrands(String kw) {
+        ResultVo resultVo = productService.listBrandsByProductKW(kw);
+        return resultVo;
+    }
 }

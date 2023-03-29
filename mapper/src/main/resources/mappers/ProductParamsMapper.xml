@@ -19,4 +19,21 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
+  <select id="selectProductBrandsByCid" resultSets="java.util.List" resultType="String">
+    select brand
+    from product_params
+    where product_id in (select product_id from product where category_id=#{cid})
+  </select>
+
+    <select id="selectProductBrandByKW" resultSets="java.util.List" resultType="String">
+    select brand
+    from product_params
+    where product_id in (select product_id from product where product_name like #{kw})
+  </select>
+
+
+
+
+
 </mapper>

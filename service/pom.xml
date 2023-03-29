@@ -44,12 +44,6 @@
             <version>0.9.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.github.wxpay/wxpay-sdk -->
         <dependency>
             <groupId>com.github.wxpay</groupId>
@@ -61,7 +55,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
-            <version>2.4.4</version>
         </dependency>
 
     </dependencies>

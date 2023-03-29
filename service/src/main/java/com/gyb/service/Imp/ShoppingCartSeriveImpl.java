@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class ShoppingCartSeriveImpl implements ShoppingCartSerive {
     private ShoppingCartMapper shoppingCartMapper;
 
     public ResultVo addShoppingCart(ShoppingCart shoppingCart) {
+
+        shoppingCart.setCartTime(new Date().toString());
         int i = shoppingCartMapper.insertUseGeneratedKeys(shoppingCart);
         if(i > 0){
             return new ResultVo(ResStatus.OK,"success",null);

@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @MapperScan("com.gyb.mapper")
-@EnableScheduling
+//@EnableScheduling
 public class ApiApplication {
 
     public static void main(String[] args) {

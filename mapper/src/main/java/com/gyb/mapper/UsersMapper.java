@@ -6,4 +6,5 @@ import com.gyb.general.GeneralDao;
 public interface UsersMapper extends GeneralDao<Users> {
 
 
+
 }

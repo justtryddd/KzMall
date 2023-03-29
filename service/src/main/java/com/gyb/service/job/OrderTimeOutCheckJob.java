@@ -31,36 +31,42 @@ public class OrderTimeOutCheckJob {
 
 
 
-    @Scheduled(cron = "0/60 * * * * ?")
-    public void orderCheck() throws Exception {
-        //1.每隔1分钟查询订单状态，找出30min内可能未付款的订单
-        Example example = new Example(Orders.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("status",1);
-        Date date = new Date(System.currentTimeMillis() - 30 * 60 * 60 * 1000);
-        criteria.andLessThan("createTime",date);
-        List<Orders> orders = ordersMapper.selectByExample(example);
+    @Scheduled(cron = "10/60 * * * * ?")
+    public void orderCheck(){
+        System.out.println("-------------------11");
 
-        //2、向微信支付API确认这些订单是否已付款。一个订单一个订单的处理
-        for (Orders order : orders) {
-            String signOrder = order.getOrderId();
-            Map<String, String> map = new HashMap<>();
-            map.put("transaction_id", signOrder);
-            Map<String, String> resp = wxPay.orderQuery(map);
+        try {
+            //1.每隔1分钟查询订单状态，找出30min内可能未付款的订单
+            Example example = new Example(Orders.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("status", 1);
+            Date date = new Date(System.currentTimeMillis() - 30 * 60 * 60 * 1000);
+            criteria.andLessThan("createTime", date);
+            List<Orders> orders = ordersMapper.selectByExample(example);
 
-            //若已付款，修改订单状态为代发货
-            if (resp.get("trade_state").equals("SUCCESS")) {
-                Orders orders1 = new Orders();
-                orders1.setOrderId(signOrder);
-                orders1.setStatus("2");
-                ordersMapper.updateByPrimaryKeySelective(orders1);
+            //2、向微信支付API确认这些订单是否已付款。一个订单一个订单的处理
+            for (Orders order : orders) {
+                String signOrder = order.getOrderId();
+                Map<String, String> map = new HashMap<>();
+                map.put("transaction_id", signOrder);
+                Map<String, String> resp = wxPay.orderQuery(map);
+
+                //若已付款，修改订单状态为代发货
+                if (resp.get("trade_state").equals("SUCCESS")) {
+                    Orders orders1 = new Orders();
+                    orders1.setOrderId(signOrder);
+                    orders1.setStatus("2");
+                    ordersMapper.updateByPrimaryKeySelective(orders1);
+                }
+                //若未付款，告知支付API关闭支付链接（关闭订单），释放库存
+                else {
+                    Map<String, String> resp1 = wxPay.closeOrder(map);
+                    System.out.println(resp1);
+                    orderService.restoreSkuStock(signOrder);
+                }
             }
-            //若未付款，告知支付API关闭支付链接（关闭订单），释放库存
-            else {
-                Map<String, String> resp1 = wxPay.closeOrder(map);
-                System.out.println(resp1);
-                orderService.restoreSkuStock(signOrder);
-            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

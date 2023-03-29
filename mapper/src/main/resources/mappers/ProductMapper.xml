@@ -72,4 +72,58 @@
     </select>
 
 
+    <resultMap id="ProductVOMap2" type="com.gyb.entity.ProductVO">
+        <id column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="root_category_id" jdbcType="INTEGER" property="rootCategoryId" />
+        <result column="sold_num" jdbcType="INTEGER" property="soldNum"/>
+        <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+        <collection property="imgs"
+                    select="com.gyb.mapper.ProductImgMapper.selectProductImgByProductId" column="product_id"/>
+        <collection property="skus"
+                    select="com.gyb.mapper.ProductSkuMapper.selectLowestSkuByID" column="product_id"/>
+    </resultMap>
+
+    <select id="selectProductByCategoryId" resultMap="ProductVOMap2">
+        select
+            product_id,
+            product_name,
+            category_id,
+            root_category_id,
+            sold_num,
+            product_status,
+            content,
+            create_time,
+            update_time
+        from product
+        where category_id=#{cid}
+        limit #{start},#{limit}
+    </select>
+
+
+    <select id="selectProductByProductKw" resultMap="ProductVOMap2">
+        select
+            product_id,
+            product_name,
+            category_id,
+            root_category_id,
+            sold_num,
+            product_status,
+            content,
+            create_time,
+            update_time
+        from product
+        where product_name like #{kw}
+        limit #{start},#{limit}
+    </select>
+
+
+
+
+
+
 </mapper>

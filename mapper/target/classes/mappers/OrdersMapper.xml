@@ -28,4 +28,66 @@
     <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="close_type" jdbcType="INTEGER" property="closeType" />
   </resultMap>
+
+  <select id="selectAllOrdersByIDAndStatus" resultMap="BaseResultMap">
+    select
+      order_id,
+      user_id,
+      untitled,
+      receiver_name,
+      receiver_mobile,
+      receiver_address,
+      total_amount,
+      actual_amount,
+      pay_type,
+      order_remark,
+      status,
+      delivery_type,
+      delivery_flow_id,
+      order_freight
+      delete_status,
+      create_time,
+      update_time,
+      pay_time,
+      delivery_time,
+      flish_time,
+      cancel_time,
+      close_type
+    from orders
+    where user_id=#{userId}
+    <if test="status != null">
+        and status=#{status}
+    </if>
+    limit #{start},#{limit}
+  </select>
+
+<!--  <select id="selectAllOrdersByIDAndStatus" resultMap="BaseResultMap">
+    select
+      order_id,
+      user_id,
+      untitled,
+      receiver_name,
+      receiver_mobile,
+      receiver_address,
+      total_amount,
+      actual_amount,
+      pay_type,
+      order_remark,
+      status,
+      delivery_type,
+      delivery_flow_id,
+      order_freight
+      delete_status,
+      create_time,
+      update_time,
+      pay_time,
+      delivery_time,
+      flish_time,
+      cancel_time,
+      close_type
+    from orders
+    where user_id=#{userId} and status=#{status}
+    limit #{start},#{limit}
+  </select>-->
+
 </mapper>

@@ -7,6 +7,8 @@ import com.gyb.service.OrderService;
 import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +31,7 @@ public class OrderController {
 
     @ApiOperation("提交订单接口")
     @PostMapping("/add")
-    public ResultVo addOrderByEntityAndCids(@RequestBody Orders orders,String cids){
-
+    public ResultVo addOrderByEntityAndCids(@RequestBody Orders orders,String cids,@RequestHeader("token")String token){
         ResultVo resultVo = null;
 
         try {
@@ -63,6 +64,27 @@ public class OrderController {
         catch (Exception e){
             e.printStackTrace();
         }
+        return resultVo;
+    }
+
+/*
+    @ApiOperation("显示所有订单信息")
+    @PostMapping("/list")
+    public ResultVo listAllOrders(String userId,int pageNum,int limit,@RequestHeader("token")String token){
+        ResultVo resultVo = orderService.listAllOrdersById(userId,pageNum,limit);
+        return resultVo;
+    }*/
+
+    @ApiOperation("订单接口查询")
+    @GetMapping("/list")
+    @ApiImplicitParams({
+            @ApiImplicitParam(dataType = "string",name = "userId", value = "用户ID",required = true),
+            @ApiImplicitParam(dataType = "string",name = "status", value = "订单状态",required = false),
+            @ApiImplicitParam(dataType = "int",name = "pageNum", value = "页码",required = true),
+            @ApiImplicitParam(dataType = "int",name = "limit", value = "每页条数",required = true)
+    })
+    public ResultVo listAllDiffStatusOrders(String userId,String status,int pageNum,int limit,@RequestHeader("token")String token){
+        ResultVo resultVo = orderService.listAllStatusOrdersById(userId,status,pageNum,limit);
         return resultVo;
     }
 }

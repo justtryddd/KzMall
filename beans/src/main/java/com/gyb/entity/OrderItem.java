@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "order_item")
+
 //@AllArgsConstructor
 public class OrderItem {
 

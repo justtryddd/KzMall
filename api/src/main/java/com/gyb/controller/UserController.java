@@ -2,6 +2,7 @@ package com.gyb.controller;
 
 import com.gyb.entity.Users;
 import com.gyb.service.UserService;
+import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,9 +36,21 @@ public class UserController {
     private UserService userService;        //用的接口，但会调用IMPL来使用
 
 
+
+    @ApiOperation("用户注册")
     @ApiImplicitParam(dataType = "object",name = "user",value = "注册所需信息",required = true)
     @PostMapping(value = "/register")
     public ResultVo register(@RequestBody Users user){
         return userService.register(user.getUsername(),user.getPassword());
     }
+
+
+    @ApiOperation("验证用户token是否过期")
+    @GetMapping("/check")
+    public ResultVo tokenExpirationCheck(@RequestHeader("token")String token){
+        return new ResultVo(ResStatus.OK,"success",null);
+    }
+
+
+
 }

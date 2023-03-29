@@ -10,6 +10,7 @@ com\gyb\service\UserAddrService.class
 com\gyb\service\Imp\OrderServiceImpl.class
 com\gyb\service\ProductService.class
 com\gyb\service\UserService.class
+com\gyb\service\config\WeChatPayConfig.class
 com\gyb\service\Imp\ProductServiceImpl.class
 com\gyb\service\Imp\UserAddrServiceImpl.class
 com\gyb\service\IndexImgService.class

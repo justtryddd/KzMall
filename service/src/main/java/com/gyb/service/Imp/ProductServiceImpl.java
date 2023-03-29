@@ -60,9 +60,9 @@ public class ProductServiceImpl implements ProductService {
             List<ProductSku> products2 = productSkuMapper.selectByExample(example2);
 
             HashMap<String,Object> map = new HashMap<>();
-            map.put("商品信息",products.get(0));
-            map.put("商品图片信息",products1);
-            map.put("商品套餐信息",products2);
+            map.put("product",products.get(0));
+            map.put("productImgs",products1);
+            map.put("productSkus",products2);
 
 
             return new ResultVo(ResStatus.OK,"success",map);
@@ -121,7 +121,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     //查看目标商品的评论数据（好评、差评、中评、好评率）         这里注意createCriteria特点
-    public ResultVo ProductComments(String productId) {
+    public ResultVo productComments(String productId) {
         //该商品的评价总数
         Example example1 = new Example(ProductComments.class);
         Example.Criteria criteria1 = example1.createCriteria();
@@ -147,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
 
         //该商品的好评率
         double percent = (Double.parseDouble(goodCount+"") / Double.parseDouble(totalCount+"") )*100;
-//        String percentValue = (percent+"").substring(0,(percent+"").lastIndexOf(".")+3);
+        //String percentValue = (percent+"").substring(0,(percent+"").lastIndexOf(".")+3);
         String percentValue = (percent+"");
 
         HashMap<String,Object> map = new HashMap<>();
@@ -158,5 +158,57 @@ public class ProductServiceImpl implements ProductService {
         map.put("好评率",percentValue);
 
         return new ResultVo(ResStatus.OK,"success",map);
+    }
+
+
+    public ResultVo listProductByCategoryId(int cid, int pageNum, int limit) {
+        //根据前端要求：每页limit个信息，查询第pageNum页  调整下调用mapper方法
+        int start = (pageNum-1) * limit;
+        List<ProductVO> productVOS = productMapper.selectProductByCategoryId(cid, start, limit);
+
+
+        //这里直接返回也可以，但要和前端配合，所以我们创建PageHelper使数据更明晰
+        //return new ResultVo(ResStatus.OK,"success",productVOS);
+
+
+        Example example = new Example(Product.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("categoryId",cid);
+        int count = productMapper.selectCountByExample(example);
+
+        int totalPageNum = count % 10 == 0 ? count/limit : count/limit+1;
+
+        return new ResultVo(ResStatus.OK,"success",new PageHelper<ProductVO>(count,totalPageNum,productVOS));
+    }
+
+    public ResultVo listProductBrandByCid(int cid) {
+
+        List<String> strings = productParamsMapper.selectProductBrandsByCid(cid);
+
+        return new ResultVo(ResStatus.OK,"success",strings);
+    }
+
+
+    public ResultVo listProductByProductKW(String kw, int pageNum, int limit) {
+
+        kw = "%" + kw + "%";
+        int start = (pageNum-1)*limit;
+        List<ProductVO> productVOS = productMapper.selectProductByProductKw(kw, start, limit);
+
+        Example example = new Example(Product.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLike("productName",kw);
+
+        int count = productMapper.selectCountByExample(example);
+
+        int totalPageNum = count % 10 == 0 ? count/limit : count/limit+1;
+
+        return new ResultVo(ResStatus.OK,"success",new PageHelper<ProductVO>(count,totalPageNum,productVOS));
+    }
+
+    public ResultVo listBrandsByProductKW(String kw) {
+        kw = "%" + kw + "%";
+        List<String> strings = productParamsMapper.selectProductBrandByKW(kw);
+        return new ResultVo(ResStatus.OK,"success",strings);
     }
 }

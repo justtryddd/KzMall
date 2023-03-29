@@ -1,6 +1,7 @@
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\Imp\UserServiceImp.java
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\job\OrderTimeOutCheckJob.java
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\ProductService.java
+D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\config\WeChatPayConfig.java
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\ShoppingCartSerive.java
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\OrderService.java
 D:\IDEA工程\KzMall\service\src\main\java\com\gyb\service\UserAddrService.java
