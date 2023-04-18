@@ -4,6 +4,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 public class Product {
+
+
+    public Product() {
+    }
+
     /**
      * 商品主键id
      */

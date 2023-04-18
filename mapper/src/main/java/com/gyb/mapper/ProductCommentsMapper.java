@@ -1,8 +1,8 @@
 package com.gyb.mapper;
 
-import com.gyb.entity.ProductComments;
 import com.gyb.entity.ProductCommentsVo;
 import com.gyb.general.GeneralDao;
+import com.gyb.entity.ProductComments;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +20,6 @@ public interface ProductCommentsMapper extends GeneralDao<ProductComments> {
      * @return
      */
     public List<ProductCommentsVo> getCommentsById(@Param("productId") String productId,
-                                                    @Param("start") int start,
+                                                   @Param("start") int start,
                                                    @Param("limit") int limit);
 }

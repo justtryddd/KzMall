@@ -2,3 +2,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+#
+#  redis:
+#    url: redis://47.120.13.50:6379
+#    database: 0
+#    password: 123456

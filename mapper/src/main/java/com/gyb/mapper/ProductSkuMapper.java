@@ -1,7 +1,7 @@
 package com.gyb.mapper;
 
-import com.gyb.entity.ProductSku;
 import com.gyb.general.GeneralDao;
+import com.gyb.entity.ProductSku;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

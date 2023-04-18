@@ -10,7 +10,7 @@
                 <pattern>%d{yyyy-MM-dd-HH:mm:ss E} %level [%thread]-%class[%line]: %msg%n</pattern>
             </springProfile>
             <!--日志的编码格式-->
-            <charset>UTF-8</charset>
+            <charset>UTF-8</charset >
         </encoder>
     </appender>
 

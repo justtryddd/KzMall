@@ -6,11 +6,20 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/api/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/api-user-login/pom.xml" />
+        <option value="$PROJECT_DIR$/user-check/pom.xml" />
+        <option value="$PROJECT_DIR$/api-order-add/pom.xml" />
+        <option value="$PROJECT_DIR$/stock-query/pom.xml" />
+        <option value="$PROJECT_DIR$/orderitem-add/pom.xml" />
+        <option value="$PROJECT_DIR$/stock-update/pom.xml" />
+        <option value="$PROJECT_DIR$/shopcart-del/pom.xml" />
+        <option value="$PROJECT_DIR$/order-add/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/config/pom.xml" />
       </list>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/api/src/main/resources/application.yml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

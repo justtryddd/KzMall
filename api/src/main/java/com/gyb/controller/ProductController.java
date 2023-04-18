@@ -1,7 +1,7 @@
 package com.gyb.controller;
 
-import com.gyb.service.ProductService;
 import com.gyb.vo.ResultVo;
+import com.gyb.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

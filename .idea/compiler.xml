@@ -7,21 +7,51 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-order-add" />
+        <module name="shopcart-del" />
+        <module name="stock-query" />
+        <module name="orderitem-add" />
         <module name="mapper" />
-        <module name="api" />
+        <module name="eureka-server" />
+        <module name="demo" />
+        <module name="api-user-login" />
+        <module name="stock-update" />
         <module name="common" />
+        <module name="order-add" />
         <module name="service" />
         <module name="beans" />
+        <module name="api" />
+        <module name="config" />
+        <module name="gateway" />
+        <module name="user-check" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="test" target="8" />
+      <module name="zipkin" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="-parameters" />
+      <module name="api-order-add" options="-parameters" />
+      <module name="api-user-login" options="-parameters" />
       <module name="beans" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="config" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="mapper" options="-parameters" />
+      <module name="order-add" options="-parameters" />
+      <module name="orderitem-add" options="-parameters" />
       <module name="service" options="-parameters" />
+      <module name="shopcart-del" options="-parameters" />
+      <module name="stock-query" options="-parameters" />
+      <module name="stock-update" options="-parameters" />
+      <module name="test" options="-parameters" />
+      <module name="user-check" options="-parameters" />
+      <module name="zipkin" options="-parameters" />
     </option>
   </component>
 </project>

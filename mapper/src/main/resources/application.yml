@@ -14,9 +14,18 @@ spring:
       url: jdbc:mysql://47.120.13.50:3306/kzmall?useSSL=false
       username: root
       password: root
+#  redis:
+#    cluster:
+#      nodes: 47.120.13.50:7101,47.120.13.50:7102,47.120.13.50:7103
+#      max-redirects: 3
+  redis:
+    url: redis://:123456@47.120.13.50:6379
+    database: 0
 
 
-#spring:
+
+
+#    url=redis://user:password@yourhost:6379:#spring:
 #  datasource:
 #    druid:
 #      driver-class-name: com.mysql.jdbc.Driver
@@ -25,12 +34,16 @@ spring:
 #      password: siki
 
 
+
+
 mybatis:
   type-aliases-package: com.gyb.entity
   mapper-locations: classpath:mappers/*Mapper.xml
 
-
-
-
-
+redisson:
+  addr:
+    singleAddr:
+      host: redis://47.120.13.50:6379
+      password: 123456
+      database: 0
 

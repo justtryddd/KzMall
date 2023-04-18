@@ -8,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,7 +26,7 @@ public class UserController {
             @ApiImplicitParam(dataType = "string", name = "username", value = "用户登录账号", required = true)
     })
     @GetMapping(value = "/login")
-    public ResultVo checkLogin(@RequestParam("username") String name,@RequestParam("password") String password){
+    public ResultVo checkLogin(@RequestParam("username") String name, @RequestParam("password") String password){
         return userService.checkLogin(name,password);
     }
 

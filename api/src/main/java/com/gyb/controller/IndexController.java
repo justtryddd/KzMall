@@ -1,17 +1,13 @@
 package com.gyb.controller;
 
-import com.gyb.mapper.IndexImgMapper;
+import com.gyb.vo.ResultVo;
 import com.gyb.service.CategoryService;
 import com.gyb.service.IndexImgService;
 import com.gyb.service.ProductService;
-import com.gyb.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.annotation.Resources;
 
 /**
  * @date 2023/3/17 - 18:19

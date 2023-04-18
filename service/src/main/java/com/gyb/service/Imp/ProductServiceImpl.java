@@ -1,19 +1,26 @@
 package com.gyb.service.Imp;
 
-import com.gyb.entity.*;
-import com.gyb.mapper.*;
-import com.gyb.service.ProductService;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gyb.utils.PageHelper;
 import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
+import com.gyb.entity.*;
+import com.gyb.mapper.*;
+import com.gyb.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @date 2023/3/18 - 14:04
@@ -32,44 +39,94 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductCommentsMapper productCommentsMapper;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
 
     public ResultVo listRecommendProduct() {
         List<ProductVO> productVOS = productMapper.selectRecommendProduct();
-        return new ResultVo(ResStatus.OK,"success",productVOS);
+        return new ResultVo(ResStatus.OK, "success", productVOS);
     }
+
+    
+
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public ResultVo getProductBasicInfo(String productId) {
 
-        //1：根据商品Id查询product表中信息
-        Example example = new Example(Product.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("productId",productId);
-        List<Product> products = productMapper.selectByExample(example);
+        Map<String, Object> basicInfo = new HashMap<>();
+
+        String productInfo = (String) stringRedisTemplate.boundHashOps("Products").get(productId);
 
         //2：若存在该商品信息，获取其图片信息和套餐信息
-        if(products.size() > 0){
-            Example example1 = new Example(ProductImg.class);
-            Example.Criteria criteria1 = example1.createCriteria();
-            criteria1.andEqualTo("itemId",productId);
-            List<ProductImg> products1 = productImgMapper.selectByExample(example1);
+        if (productInfo != null) {
+            try {
+                Product product = objectMapper.readValue(productInfo, Product.class);
 
-            Example example2 = new Example(ProductSku.class);
-            Example.Criteria criteria2 = example2.createCriteria();
-            criteria2.andEqualTo("productId",productId);
-            List<ProductSku> products2 = productSkuMapper.selectByExample(example2);
+                String productImgs = (String) stringRedisTemplate.boundHashOps("ProductImgs").get(productId);
+                JavaType javaType1 = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, ProductImg.class);
+                List<ProductImg> productImg = objectMapper.readValue(productImgs, javaType1);
 
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("product",products.get(0));
-            map.put("productImgs",products1);
-            map.put("productSkus",products2);
+                String productSkus = (String) stringRedisTemplate.boundHashOps("ProductSkus").get(productId);
+                JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, ProductSku.class);
+                List<ProductSku> productSku = objectMapper.readValue(productSkus, javaType);
 
+                basicInfo.put("Product", product);
+                basicInfo.put("productImg", productImg);
+                basicInfo.put("productSkus", productSku);
+                System.out.println("--------------缓存数据库中数据");
 
-            return new ResultVo(ResStatus.OK,"success",map);
-        }else{
-            return new ResultVo(ResStatus.NO,"查询商品不存在",null);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("----------MySQL中的数据");
+            //若Redis缓存中没找到数据，进行插叙MySQL操作
+            Example example = new Example(Product.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("productId", productId);
+            List<Product> products = productMapper.selectByExample(example);
+
+            if (products.size() != 0) {
+                Example example1 = new Example(ProductImg.class);
+                Example.Criteria criteria1 = example1.createCriteria();
+                criteria1.andEqualTo("itemId", productId);
+                List<ProductImg> productImgs = productImgMapper.selectByExample(example1);
+
+                Example example2 = new Example(ProductSku.class);
+                Example.Criteria criteria2 = example2.createCriteria();
+                criteria2.andEqualTo("productId", productId);
+                List<ProductSku> productSkus = productSkuMapper.selectByExample(example2);
+
+                basicInfo.put("product", products.get(0));
+                basicInfo.put("productImgs", productImgs);
+                basicInfo.put("productSkus", productSkus);
+
+                System.out.println("基于对MySQL进行信息查取");
+
+                //将查询到的数据保存到Redis缓存中
+                try {
+
+                    stringRedisTemplate.boundHashOps("Products").put(productId, objectMapper.writeValueAsString(products.get(0)));
+                    stringRedisTemplate.boundHashOps("ProductImgs").put(productId, objectMapper.writeValueAsString(productImgs));
+                    stringRedisTemplate.boundHashOps("ProductSkus").put(productId, objectMapper.writeValueAsString(productSkus));
+
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
         }
-    }
+        if(basicInfo != null){
+            return new ResultVo(ResStatus.OK,"success",basicInfo);
+    }else
+        return new ResultVo(ResStatus.NO,"erro",null);
+
+}
+
 
     public ResultVo getProductParams(String productId) {
         Example example = new Example(ProductParams.class);

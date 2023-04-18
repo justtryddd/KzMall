@@ -1,12 +1,11 @@
 package com.gyb.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
+import com.gyb.vo.ResStatus;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

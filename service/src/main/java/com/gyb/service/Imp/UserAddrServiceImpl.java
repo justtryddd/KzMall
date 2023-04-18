@@ -1,10 +1,10 @@
 package com.gyb.service.Imp;
 
+import com.gyb.service.UserAddrService;
+import com.gyb.vo.ResultVo;
 import com.gyb.entity.UserAddr;
 import com.gyb.mapper.UserAddrMapper;
-import com.gyb.service.UserAddrService;
 import com.gyb.vo.ResStatus;
-import com.gyb.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

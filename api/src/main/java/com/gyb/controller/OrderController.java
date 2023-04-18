@@ -1,11 +1,11 @@
 package com.gyb.controller;
 
 import com.github.wxpay.sdk.WXPay;
+import com.gyb.service.OrderService;
+import com.gyb.vo.ResultVo;
 import com.gyb.config.WeChatPayConfig;
 import com.gyb.entity.Orders;
-import com.gyb.service.OrderService;
 import com.gyb.vo.ResStatus;
-import com.gyb.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,7 +31,7 @@ public class OrderController {
 
     @ApiOperation("提交订单接口")
     @PostMapping("/add")
-    public ResultVo addOrderByEntityAndCids(@RequestBody Orders orders,String cids,@RequestHeader("token")String token){
+    public ResultVo addOrderByEntityAndCids(@RequestBody Orders orders, String cids, @RequestHeader("token")String token){
         ResultVo resultVo = null;
 
         try {

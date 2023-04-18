@@ -3,7 +3,6 @@ package com.gyb.service.Imp;
 import com.gyb.entity.Users;
 import com.gyb.mapper.UsersMapper;
 import com.gyb.service.UserService;
-import com.gyb.utils.Base64Utils;
 import com.gyb.utils.Md5Utils;
 import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;

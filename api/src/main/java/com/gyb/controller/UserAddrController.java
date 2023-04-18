@@ -1,8 +1,6 @@
 package com.gyb.controller;
 
-import com.gyb.mapper.UserAddrMapper;
 import com.gyb.service.UserAddrService;
-import com.gyb.vo.ResStatus;
 import com.gyb.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

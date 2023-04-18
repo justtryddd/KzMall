@@ -1,10 +1,9 @@
 package com.gyb.service;
 
-import com.gyb.entity.Orders;
 import com.gyb.vo.ResultVo;
+import com.gyb.entity.Orders;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @date 2023/3/20 - 20:59
@@ -24,5 +23,5 @@ public interface OrderService {
     public ResultVo listAllOrdersById(String userId,int pageNum,int limit);*/
 
     //显示
-    public ResultVo listAllStatusOrdersById(String userId,String status,int pageNum,int limit);
+    public ResultVo listAllStatusOrdersById(String userId, String status, int pageNum, int limit);
 }

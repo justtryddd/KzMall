@@ -1,7 +1,6 @@
 package com.gyb.mapper;
 
 import com.gyb.entity.Product;
-import com.gyb.entity.ProductParams;
 import com.gyb.entity.ProductVO;
 import com.gyb.general.GeneralDao;
 import org.springframework.stereotype.Repository;
