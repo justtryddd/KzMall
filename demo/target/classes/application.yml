@@ -1,0 +1,21 @@
+
+server:
+  port: 9411
+
+
+
+management:
+  ## ����ɨ��ڵ㣨�ýڵ�ָ�����������ӵ�Zipkin�еĽڵ㣩
+  endpoints.web.exposure.include: '*'
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: false
+spring:
+  application:
+    name: zipkin
+
+#zipkin���������޷����ʵĽ������
+management.metrics.web.server.auto-time-requests: false

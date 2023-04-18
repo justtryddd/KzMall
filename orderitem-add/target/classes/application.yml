@@ -1,0 +1,23 @@
+server:
+  port: 8015
+
+spring:
+  application:
+    name: orderitem-add
+  datasource:
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://47.120.13.50:3306/kzmall?useSSL=false
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/eureka
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*Mapper.xml
+  type-aliases-package: com.gyb.entity

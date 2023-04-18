@@ -1,0 +1,30 @@
+
+server:
+  port: 8001
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: orderAddApi_route
+          uri: lb://api-order-add
+          predicates:
+            - Path=/order/**
+
+        - id: userLoginApi_route
+          uri: lb://api-user-login
+          predicates:
+            - Path=/user/**
+  main:
+    web-application-type: reactive
+
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/eureka
+

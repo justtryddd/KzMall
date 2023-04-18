@@ -1,0 +1,18 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: user-check
+  datasource:
+    url: jdbc:mysql://47.120.13.50:3306/kzmall?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/
+mybatis:
+  mapper-locations: classpath:mappers/*Mapper.xml

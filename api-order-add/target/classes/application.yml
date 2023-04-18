@@ -1,0 +1,15 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: api-order-add
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/eureka
+feign:
+  hystrix:
+    enabled: true

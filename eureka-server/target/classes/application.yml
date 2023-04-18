@@ -1,0 +1,19 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      password: siki
+      name: root
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/eureka
+    fetch-registry: false
+    register-with-eureka: false
+
+

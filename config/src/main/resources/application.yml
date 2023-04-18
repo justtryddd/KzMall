@@ -1,0 +1,14 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: config-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:siki@localhost:9001/eureka
+feign:
+  hystrix:
+    enabled: true
